@@ -15,6 +15,8 @@ import (
 	"github.com/jmoiron/sqlx"
 )
 
+var automationActivityAuthor = "Fleet"
+
 // NewActivity stores an activity item that the user performed
 func (ds *Datastore) NewActivity(
 	ctx context.Context, user *fleet.User, activity fleet.ActivityDetails, details []byte, createdAt time.Time,
@@ -39,6 +41,14 @@ func (ds *Datastore) NewActivity(
 		}
 		userName = &user.Name
 		userEmail = &user.Email
+	} else if ranScriptActivity, ok := activity.(fleet.ActivityTypeRanScript); ok {
+		if ranScriptActivity.PolicyID != nil {
+			userName = &automationActivityAuthor
+		}
+	} else if softwareInstallActivity, ok := activity.(fleet.ActivityTypeInstalledSoftware); ok {
+		if softwareInstallActivity.PolicyID != nil {
+			userName = &automationActivityAuthor
+		}
 	}
 
 	cols := []string{"user_id", "user_name", "activity_type", "details", "created_at"}
@@ -293,7 +303,7 @@ func (ds *Datastore) ListHostUpcomingActivities(ctx context.Context, hostID uint
 		// list pending scripts
 		`SELECT
 			hsr.execution_id as uuid,
-			u.name as name,
+			IF(hsr.policy_id IS NOT NULL, 'Fleet', u.name) as name,
 			u.id as user_id,
 			u.gravatar_url as gravatar_url,
 			u.email as user_email,
@@ -304,12 +314,16 @@ func (ds *Datastore) ListHostUpcomingActivities(ctx context.Context, hostID uint
 				'host_display_name', COALESCE(hdn.display_name, ''),
 				'script_name', COALESCE(scr.name, ''),
 				'script_execution_id', hsr.execution_id,
-				'async', NOT hsr.sync_request
+				'async', NOT hsr.sync_request,
+			    'policy_id', hsr.policy_id,
+			    'policy_name', p.name
 			) as details
 		FROM
 			host_script_results hsr
 		LEFT OUTER JOIN
 			users u ON u.id = hsr.user_id
+		LEFT OUTER JOIN
+			policies p ON p.id = hsr.policy_id
 		LEFT OUTER JOIN
 			host_display_names hdn ON hdn.host_id = hsr.host_id
 		LEFT OUTER JOIN
@@ -329,11 +343,11 @@ func (ds *Datastore) ListHostUpcomingActivities(ctx context.Context, hostID uint
 		fmt.Sprintf(`SELECT
 			hsi.execution_id as uuid,
 			-- policies with automatic installers generate a host_software_installs with (user_id=NULL,self_service=0),
-			-- thus the user_id for the upcoming activity needs to be the user that uploaded the software installer.
-			IF(hsi.user_id IS NULL AND NOT hsi.self_service, u2.name, u.name) AS name,
-			IF(hsi.user_id IS NULL AND NOT hsi.self_service, u2.id, u.id) as user_id,
-			IF(hsi.user_id IS NULL AND NOT hsi.self_service, u2.gravatar_url, u.gravatar_url) as gravatar_url,
-			IF(hsi.user_id IS NULL AND NOT hsi.self_service, u2.email, u.email) AS user_email,
+			-- so we mark those as "Fleet"
+			IF(hsi.user_id IS NULL AND NOT hsi.self_service, 'Fleet', u.name) AS name,
+			hsi.user_id as user_id,
+			u.gravatar_url as gravatar_url,
+			u.email AS user_email,
 			:installed_software_type as activity_type,
 			hsi.created_at as created_at,
 			JSON_OBJECT(
@@ -343,7 +357,9 @@ func (ds *Datastore) ListHostUpcomingActivities(ctx context.Context, hostID uint
 				'software_package', si.filename,
 				'install_uuid', hsi.execution_id,
 				'status', CAST(hsi.status AS CHAR),
-				'self_service', si.self_service IS TRUE
+				'self_service', hsi.self_service IS TRUE,
+				'policy_id', hsi.policy_id,
+			    'policy_name', p.name
 			) as details
 		FROM
 			host_software_installs hsi
@@ -354,7 +370,7 @@ func (ds *Datastore) ListHostUpcomingActivities(ctx context.Context, hostID uint
 		LEFT OUTER JOIN
 			users u ON u.id = hsi.user_id
 		LEFT OUTER JOIN
-			users u2 ON u2.id = si.user_id
+			policies p ON p.id = hsi.policy_id
 		LEFT OUTER JOIN
 			host_display_names hdn ON hdn.host_id = hsi.host_id
 		WHERE
@@ -365,11 +381,11 @@ func (ds *Datastore) ListHostUpcomingActivities(ctx context.Context, hostID uint
 		fmt.Sprintf(`SELECT
 			hsi.execution_id as uuid,
 			-- policies with automatic installers generate a host_software_installs with (user_id=NULL,self_service=0),
-			-- thus the user_id for the upcoming activity needs to be the user that uploaded the software installer.
-			IF(hsi.user_id IS NULL AND NOT hsi.self_service, u2.name, u.name) AS name,
-			IF(hsi.user_id IS NULL AND NOT hsi.self_service, u2.id, u.id) as user_id,
-			IF(hsi.user_id IS NULL AND NOT hsi.self_service, u2.gravatar_url, u.gravatar_url) as gravatar_url,
-			IF(hsi.user_id IS NULL AND NOT hsi.self_service, u2.email, u.email) AS user_email,
+			-- so we mark those as "Fleet"
+			IF(hsi.user_id IS NULL AND NOT hsi.self_service, 'Fleet', u.name) AS name,
+			hsi.user_id as user_id,
+			u.gravatar_url as gravatar_url,
+			u.email AS user_email,
 			:uninstalled_software_type as activity_type,
 			hsi.created_at as created_at,
 			JSON_OBJECT(
@@ -377,7 +393,9 @@ func (ds *Datastore) ListHostUpcomingActivities(ctx context.Context, hostID uint
 				'host_display_name', COALESCE(hdn.display_name, ''),
 				'software_title', COALESCE(st.name, ''),
 				'script_execution_id', hsi.execution_id,
-				'status', CAST(hsi.status AS CHAR)
+				'status', CAST(hsi.status AS CHAR),
+				'policy_id', hsi.policy_id,
+			    'policy_name', p.name
 			) as details
 		FROM
 			host_software_installs hsi
@@ -388,7 +406,7 @@ func (ds *Datastore) ListHostUpcomingActivities(ctx context.Context, hostID uint
 		LEFT OUTER JOIN
 			users u ON u.id = hsi.user_id
 		LEFT OUTER JOIN
-			users u2 ON u2.id = si.user_id
+			policies p ON p.id = hsi.policy_id
 		LEFT OUTER JOIN
 			host_display_names hdn ON hdn.host_id = hsi.host_id
 		WHERE
@@ -539,35 +557,65 @@ func (ds *Datastore) CleanupActivitiesAndAssociatedData(ctx context.Context, max
 	// `activities` and `queries` are not tied because the activity itself holds
 	// the query SQL so they don't need to be executed on the same transaction.
 	//
-	if err := ds.withTx(ctx, func(tx sqlx.ExtContext) error {
-		// Delete temporary queries (aka "not saved").
-		if _, err := tx.ExecContext(ctx,
-			`DELETE FROM queries
+	// All expired live queries are deleted in batch sizes of `maxCount` to ensure
+	// the table size is kept in check with high volumes of live queries (zero-trust workflows).
+	// This differs from the `activities` cleanup which uses maxCount as a limit to
+	// the number of activities to delete.
+	//
+	for {
+		if ctx.Err() != nil {
+			return ctx.Err()
+		}
+
+		var rowsAffected int64
+
+		// Start a new transaction for each batch of deletions.
+		err := ds.withTx(ctx, func(tx sqlx.ExtContext) error {
+			// Delete expired live queries (aka "not saved")
+			result, err := tx.ExecContext(ctx,
+				`DELETE FROM queries
 			WHERE NOT saved AND created_at < DATE_SUB(NOW(), INTERVAL ? DAY)
 			LIMIT ?`,
-			expiredWindowDays, maxCount,
-		); err != nil {
-			return ctxerr.Wrap(ctx, err, "delete expired non-saved queries")
-		}
-		// Delete distributed campaigns that reference unexisting query (removed in the previous query).
-		if _, err := tx.ExecContext(ctx,
-			`DELETE distributed_query_campaigns FROM distributed_query_campaigns
+				expiredWindowDays, maxCount,
+			)
+			if err != nil {
+				return ctxerr.Wrap(ctx, err, "delete expired non-saved queries")
+			}
+
+			rowsAffected, err = result.RowsAffected()
+			if err != nil {
+				return ctxerr.Wrap(ctx, err, "retrieving rows affected from delete query")
+			}
+
+			// Cleanup orphaned distributed campaigns that reference non-existing queries.
+			if _, err := tx.ExecContext(ctx,
+				`DELETE distributed_query_campaigns FROM distributed_query_campaigns
 			LEFT JOIN queries ON (distributed_query_campaigns.query_id=queries.id)
 			WHERE queries.id IS NULL`,
-		); err != nil {
-			return ctxerr.Wrap(ctx, err, "delete expired orphaned distributed_query_campaigns")
-		}
-		// Delete distributed campaign targets that reference unexisting distributed campaign (removed in the previous query).
-		if _, err := tx.ExecContext(ctx,
-			`DELETE distributed_query_campaign_targets FROM distributed_query_campaign_targets
+			); err != nil {
+				return ctxerr.Wrap(ctx, err, "delete expired orphaned distributed_query_campaigns")
+			}
+
+			// Cleanup orphaned distributed campaign targets that reference non-existing distributed campaigns.
+			if _, err := tx.ExecContext(ctx,
+				`DELETE distributed_query_campaign_targets FROM distributed_query_campaign_targets
 			LEFT JOIN distributed_query_campaigns ON (distributed_query_campaign_targets.distributed_query_campaign_id=distributed_query_campaigns.id)
 			WHERE distributed_query_campaigns.id IS NULL`,
-		); err != nil {
-			return ctxerr.Wrap(ctx, err, "delete expired orphaned distributed_query_campaign_targets")
+			); err != nil {
+				return ctxerr.Wrap(ctx, err, "delete expired orphaned distributed_query_campaign_targets")
+			}
+
+			return nil
+		})
+		if err != nil {
+			return ctxerr.Wrap(ctx, err, "delete expired queries in batch")
 		}
-		return nil
-	}); err != nil {
-		return ctxerr.Wrap(ctx, err, "delete expired distributed queries")
+
+		// Break the loop if no rows were deleted in the current batch.
+		if rowsAffected == 0 {
+			break
+		}
 	}
+
 	return nil
 }

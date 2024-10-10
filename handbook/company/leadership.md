@@ -39,7 +39,7 @@ These flaws are listed here publicly for two reasons. The first is so that peopl
 
 
 ## CEO responsibilities
-Ultimately, the CEO is responsible for the success or failure of the company. The CEO is the [directly responsible individual (DRI)](https://fleetdm.com/handbook/company/why-this-way#why-direct-responsibility) for pricing, tiers, the business model, signatures on all documents, product marketing (brandfronts, pitchfronts, featurefronts, ICPs, personas, and targeting).
+Ultimately, the CEO is responsible for the success or failure of the company. The CEO is the [directly responsible individual (DRI)](https://fleetdm.com/handbook/company/why-this-way#why-direct-responsibility) for pricing, tiers, the business model, human resources, legal counsel, signatures on all documents, and brand &amp; product marketing (brandfronts, pitchfronts, featurefronts, ICPs, personas, and targeting).
 
 > **Note:** When the CEO is out of office, CEO responsibilities are either paused, delegated, or coordinated through the [Apprentice to the CEO](https://fleetdm.com/handbook/digital-experience#team) so they can be handled promptly.  (It depends on the responsibility and the situation.)
 
@@ -320,7 +320,7 @@ Here are the steps hiring managers follow to get an offer out to a candidate:
 
 3. **Compile feedback into a single doc:** In the "interview packet", include feedback from interviews, reference checks, and challenge submissions. Include any other notes you can think of offhand, and embed links to any supporting documents that were impactful in your final decision-making, such as portfolios or challenge submissions.
    - Name the doc with a short, formulaic name that's easy to understand in an instant from just an email subject line (e.g. "_Why hire Jane Doe ("Train Conductor") - 2023-03-21_").
-   - _Share_ this single document with the CEO.
+   - _Share_ this single document with the [CEO and Head of Digital Experience](https://fleetdm.com/handbook/digital-experience#team).
 4. **Request a CEO interview:** Copy the template below, paste it in the hiring Slack channel for the position, and complete all "TODOs" before sending.
 
      ```
@@ -360,44 +360,16 @@ After receiving the interview packet, the Head of Digital Experience uses the fo
 4. **Send offer:** 🐈‍⬛ CEO reviews and sends the offer to the candidate:
    - _Grant the candidate "edit" access_ to their "exit scenarios" spreadsheet.
    - _Send_ the email.
+5. **Process the offer response** The Head of Digital Experience will process the offer response by either creating a new ["Teammate pre-onboarding" issue](https://github.com/fleetdm/confidential/issues/new?assignees=&labels=%23g-digital-experience&projects=&template=pre-onboarding.md&title=Pre-onboarding%3A+______________________) and following the steps if the offer is accepted or notifying the stakeholders that the offer was not accepted and we should continue the search. 
 
-#### Steps after an offer is accepted
-Once the new team member replies and accepts their offer in writing, 🌐 Head of Digital Experience follows these steps:
-1. **Verify, track, and reply:** Reply to the candidate:
-   - _Verify the candidate replied with their physical address… or else keep asking._  If they did not reply with their physical address, then we are not done.  No offer is "accepted" until we've received a physical address.
-   - _Review and update the team database_ to be sure everything is accurate, **one last time**.  Remember to read the column headers and precisely follow the instructions about how to format the data:
-     - The new team member's role in ["🧑‍🚀 Fleeties"](https://docs.google.com/spreadsheets/d/1OSLn-ZCbGSjPusHPiR5dwQhheH1K8-xqyZdsOe9y7qc/edit#gid=0) now includes:
-       - **Start date** _(The new fleetie's first day, YYYY-MM-DD)_
-       - **Location** _(Derive this from the physical address)_
-       - **GitHub username**  _(Username of 2FA-enabled GitHub account)_
-       - **@fleetdm.com email** _(Set this to whatever email you think this person should have)_
-     - The new team member's row in ["🥧 Equity plan"](https://docs.google.com/spreadsheets/d/1_GJlqnWWIQBiZFOoyl9YbTr72bg5qdSSp4O3kuKm1Jc/edit#gid=0) now includes:
-       - **OTE** _("On-target earnings", i.e. anticipated total annual cash compensation)_
-       - **Equity** _(Stock options)_
-       - **"Notes"** _(Track base salary here, as well as a very short explanation of commission or bonus structure.)_
-       - **Physical address** _(The full street address of the location where work will typically be performed.)_
-       - **Personal email** _(Use the personal email they're replying from, e.g. `@gmail.com`)_
-       - **"Offer accepted?"** _(Set this to `TRUE`)_
-   - _[Create a "Hiring" issue](https://github.com/fleetdm/confidential/issues/new/choose)_ for the new team member.  (This issue will keep track of the hiring tasks for the new team member.)
-   - _Send a reply_ welcoming the team member to Fleet and letting them know to expect a separate email with next steps for getting the team member's laptop, Yubikeys, and agreement going ASAP so they can start on time.  For example:
-     ```
-     \o/  It's official!
-     
-     Be on the lookout for an email in a separate thread with next steps for quickly signing the paperwork and getting your company laptop and hardware 2FA keys (Yubikeys), which we recommend setting up ASAP.
-     
-     Thanks, and welcome to the team!
-     
-     -Sam
-     ```
-2. **Ask hiring manager to send rejections:** Post to the `hiring-xxxxx-yyyy` Slack channel to let folks know the offer was accepted, and at-mention the _hiring manager_ to ask them to communicate with [all other interviewees](https://fleetdm.com/handbook/company#empathy) who are still in the running and [let them know that we chose a different person](https://fleetdm.com/handbook/company/leadership#candidate-correspondence-email-templates).
-   >_**Note:** Send rejection emails quickly, within 1 business day.  It only gets harder if you wait._
-3. **Remove open position:** Ensure the hiring manager removes the newly-filled position from the fleetdm.com website by [making a pull request](https://fleetdm.com/handbook/company/communications#making-a-pull-request) to delete it from the [open-positions.yml](https://github.com/fleetdm/fleet/blob/main/handbook/company/open-positions.yml) file.
-4. **Create 30-60-90 day plan:** 🧑‍🚀 Hiring manager creates a 30-60-90 day plan outlining key role objectives. The plan is reviewed weekly in 1:1 meetings during the first three months of employment, ensuring continuous support and alignment with company goals. To create the 30-60-90 day plan, hiring manager will:
-    - Create a copy of the [30-60-90 day plan template](https://docs.google.com/document/d/1EztmPBuMFXbVoy4ZToXcxasNO38ooOh8Gh5hPXFvJhI/copy) and rename the copied file using the naming convention `[start date] - 30-60-90 day plan - [teammate full name]` and move it to the [30-60-90 day plan folder](https://drive.google.com/drive/u/0/folders/1QWiAbgBFuuofT_3M8oIoBsbEBmubQAj7) in Google Drive.
-    - Follow the prompts in the template to fill out the 30-60-90 day plan for the new teammate before they start.
-5. **Close Slack channel:** Then archive and close the channel.
+#### After an offer is accepted
 
-Now what happens?  🌐 Head of Digital Experience will then follow the steps in the "Hiring" issue, which includes reaching out to the new team member within 1 business day from a separate email thread to get additional information as needed, prepare their agreement, add them to the company's payroll system, and get their new laptop and hardware security keys ordered so that everything is ready for them to start on their first day.
+The Head of Digital Experience will then follow the steps in the ["Teammate pre-onboarding"](https://github.com/fleetdm/confidential/issues/new?assignees=&labels=%23g-digital-experience&projects=&template=pre-onboarding.md&title=Pre-onboarding%3A+______________________) issue, which includes reaching out to the new team member within 1 business day from a separate email thread to get additional information as needed, prepare their agreement, add them to the company's payroll system, and get their new laptop and hardware security keys ordered so that everything is ready for them to start on their first day.
+
+
+## Create a 30-60-90 day plan
+
+The hiring manager creates a 30-60-90 day plan outlining key role objectives to be reviewed in 1:1 meetings during the first three months of employment. To create the 30-60-90 day plan, use the prompts in the "Vision" section of the new teammates [1:1 meeting doc (TEMPLATE)](https://docs.google.com/document/d/1IkGQJ4PPU0MyW35Xo8BuvoUPKpStsmcw_nHWt71W2yE/edit#heading=h.uzxntzlyyaou) to ensure continuous support and alignment with company goals.
 
 
 ## CEO shadow program
@@ -442,9 +414,12 @@ Although it's sad to see someone go, Fleet understands that not everything is me
 4. **CEO**: The CEO will make an announcement during the "🌈 Weekly Update" post on Friday in the `#general` channel on Slack. 
 
 
-<<<<<<< HEAD
-## Changing someone's position
-From time to time, someone's job title changes.  To do this, reach out to [Digital Experience](https://fleetdm.com/handbook/digital-experience).
+## Request a role change for a Fleetie
+
+From time to time, someone's job title changes. The hiring manager can use the following steps to change someone's position:
+1. Create Slack channel: Create a private "#YYYY-change-title-for-xxxxxx" Slack channel (where "xxxxxx" is the Fleetie's name and YYYY is the current year) for discussion and invite the CEO and Head of Digital Experience.
+2. At-mention the Head of Digital Experience in the new channel with any context regarding the title change. Share any related documents with the Head of Digital Experience and the CEO.
+3. After getting approval from the [Head of People](https://fleetdm.com/handbook/digital-experience#team), the Digital Experience team will take the necessary steps to [change the fleetie's job title](https://fleetdm.com/handbook/digital-experience#change-a-fleeties-job-title).
 
 <img width="384" alt="image" src="https://github.com/fleetdm/fleet/assets/618009/1e59ac8f-26d8-4f2f-9ff4-2e303753c910">
 

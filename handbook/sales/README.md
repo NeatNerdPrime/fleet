@@ -10,7 +10,7 @@ This handbook page details processes specific to working [with](#contact-us) and
 | Chief Revenue Officer (CRO)                  | [Alex Mitchell](https://www.linkedin.com/in/alexandercmitchell/) _([@alexmitchelliii](https://github.com/alexmitchelliii))_
 | Solutions Consulting (SC)                    | [Dave Herder](https://www.linkedin.com/in/daveherder/) _([@dherder](https://github.com/dherder))_ <br> [Zach Wasserman](https://www.linkedin.com/in/zacharywasserman/) _([@zwass](https://github.com/zwass))_ <br> [Allen Houchins](https://www.linkedin.com/in/allenhouchins/) _([@allenhouchins](https://github.com/allenhouchins))_ <br> [Harrison Ravazzolo](https://www.linkedin.com/in/harrison-ravazzolo/) _([@harrisonravazzolo](https://github.com/harrisonravazzolo))_
 | Channel Sales                                | [Tom Ostertag](https://www.linkedin.com/in/tom-ostertag-77212791/) _([@tomostertag](https://github.com/TomOstertag))_
-| Account Executive (AE)                       | [Patricia Ambrus](https://www.linkedin.com/in/pambrus/) _([@ambrusps](https://github.com/ambrusps))_ <br> [Anthony Snyder](https://www.linkedin.com/in/anthonysnyder8/) _([@anthonysnyder8](https://github.com/AnthonySnyder8))_ <br> [Paul Tardif](https://www.linkedin.com/in/paul-t-750833/) _([@phtardif1](https://github.com/phtardif1))_
+| Account Executive (AE)                       | [Patricia Ambrus](https://www.linkedin.com/in/pambrus/) _([@ambrusps](https://github.com/ambrusps))_ <br> [Anthony Snyder](https://www.linkedin.com/in/anthonysnyder8/) _([@anthonysnyder8](https://github.com/AnthonySnyder8))_ <br> [Paul Tardif](https://www.linkedin.com/in/paul-t-750833/) _([@phtardif1](https://github.com/phtardif1))_ <br> [Kendra McKeever](https://www.linkedin.com/in/kendramckeever/) _([@KendraAtFleet](https://github.com/KendraAtFleet))_
 
 
 ## Contact us
@@ -141,6 +141,30 @@ To schedule an [ad hoc meeting](https://www.vocabulary.com/dictionary/ad%20hoc) 
  - The AE will populate this issue with the appropriate dates for an internal prep meeting as well as the dates for the external prospect meeting.
  - Do not assign the issue. The Director of Solutions Consulting will assign the issue.
  - Ensure that the product category is defined ("Endpoint ops", "Device management", or "Vulnerability management") in the description of the issue.
+
+
+### Conduct a POV
+
+We use the "tech eval test plan" as a guide when conducting a "POV" (Proof of Value) with a prospect. This planning helps us avoid costly detours that can take a long time, and result in folks getting lost. The tech eval test plan is the main document that will track success criteria for the tech eval.
+
+When we have had sufficient meetings and demos, including an overview demo and a customized demo, and we have qualified the prospect, when the prospect asks to "kick the tires/do a POC/do a technical evaluation", the AE moves the opportuity to "Stage 3 - Requested POV" phase in Salesforce. Automation will generate the tech eval test plan. This doc will exist in Google Drive> Sales> Opportunities> "Account Name". 
+
+The AE and SC will work together to scope the POV with the prospect in this stage. The AE and SC will work together to answer the following questions:
+
+1. Do we have a well-defined set of technical criteria to test and are we confident that Fleet can meet this criteria to achieve a technical win?
+2. Do we have a timeline agreed upon?
+3. What are the key business outcomes that will be verified as a result of completing the tech eval?
+
+If the above questions are answered successfully, the opportunity should progress to tech eval. If we cannot answer the questions above successfully, then the POV should not start unless approved by the CRO.
+
+During Stage 4, follow this process:
+1. SC creates a [tech eval issue](https://github.com/fleetdm/confidential/issues/new?assignees=dherder&labels=%23g-sales&projects=&template=technical-evaluation.md&title=Technical+evaluation%3A+___________________).
+2. SC updates the issue labels to include: "~sc, :tech-eval" and the obfuscated "prospect-codename" label. See [Assign a customer a codename](https://fleetdm.com/handbook/customer-success#assign-a-customer-codename). Instead of
+   "customer-codename", prospects are labeled "prospect-codename". When a prospect purchases Fleet, the SC will edit this label from "prospect-codename" to "customer-codename".
+3. SC sets the appropriate sprint duration based on the defined timelines and an estimation of effort in points.
+4. SC converts the issue to an Epic. All issues related to this prospect tech eval (ie: cloud instance deployments, etc.) should be added to the newly created epic.
+5. All check-in meetings and notes taken are documented in the tech eval test plan document. Any TODO item will be added as a comment to the tech eval issue epic.
+6. The SC presents the tech eval test plan and feature tracker used for the tech eval to the CS team upon the prospect's transition to Fleet customer.
 
 
 ### Hand off a technical evaluation to a temporary DRI

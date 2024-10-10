@@ -485,7 +485,7 @@ We use the following story points to estimate tasks:
 ### Making a pull request
 
 Our handbook and docs pages are written in Markdown and are editable from our website (via GitHub). Follow the instructions below to propose an edit to the handbook or docs.
-1. Click the _"Edit page"_ button from the relevant handbook or docs page on [fleetdm.com](https://www.fleetdm.com) (this will take you to the GitHub browser).
+1. Click the _"Edit page"_ button (top right of the page) from the relevant handbook or docs page on [fleetdm.com](https://www.fleetdm.com) (this will take you to the GitHub browser).
 2. Make your suggested edits in the GitHub.
 3. Click _"Commit changes...."_
 4. Give your proposed change a title or _["Commit message"](https://about.gitlab.com/topics/version-control/version-control-best-practices/#write-descriptive-commit-messages)_ and optional _"Extended description"_ (good commit messages help page maintainers quickly understand the proposed changes).
@@ -670,7 +670,7 @@ For recurring business expenses paid by credit card, there are four accounts pay
 | Business spend | Business tax, insurance, IT, SaaS, other | CEO |
 | Individualized spend | Flowers, swag, and other internal gifting for Fleeties, coaching/training, coworking, and other large [individualized expenses](https://fleetdm.com/handbook/company/communications#individualized-expenses) | Head of Finance |
 | Infrastructure spend | AWS and other production/cloud infrastructure related to hosting Fleet for customers or load testing customer scale | CTO |
-| Marketing program spend | Ads, events, sponsorship, etc. | Head of Demand | 
+| Marketing program spend | Ads, events, sponsorship, etc. | Head of Marketing | 
 
 
 
@@ -749,7 +749,7 @@ When attending a conference for Fleet, treat it [like other travel for the compa
 
 ## SOC 2
 
-You can find a copy of Fleet's SOC 2 report in [Google Drive](https://drive.google.com/file/d/1B-Xb4ZVmZk7Fk0IA1eCr8tCVJ-cfipid/view?usp=drivesdk).  In its current form, this SOC 2 report is intended to be shared only with parties who have signed a non-disclosure agreement with Fleet.
+You can find a copy of Fleet's SOC 2 report in [Google Drive](https://drive.google.com/file/d/1mUwmCUdggONULr6OjDO--QtKfDWLcrI4/view?usp=sharing).  In its current form, this SOC 2 report is intended to be shared only with parties who have signed a non-disclosure agreement with Fleet.
 
 You can learn more about how Fleet approaches security in the [security handbook](https://fleetdm.com/handbook/security) or in [Fleet's trust report](https://fleetdm.com/trust).
 
@@ -1126,6 +1126,7 @@ As we use sentence case, only the first word is capitalized. But, if a word woul
 - **Group of devices or virtual servers:** Use "fleet" or "fleets" (lowercase).
 - **Osquery:** Osquery should always be written in lowercase unless used to start a sentence or heading.
 - **Fleetd:** Fleetd should always be written in lowercase unless used to start a sentence or heading.
+- **Fleetctl:** Fleetctl should always be written in lowercase unless used to start a sentence or heading. Fleetctl should always be in plain text and not inside codeblocks text unless used in a command (ex. `fleetctl -help`).
 
 
 #### Device vs endpoint
@@ -1359,10 +1360,10 @@ Each heading needs two lines of empty space separating it from the previous sect
 
 ```
 ...previous content.
-
-
+<!-- Empty space -->
+<!-- Empty space -->
 ### New heading
-
+<!-- Empty space -->
 Related content... 
 ```
 
